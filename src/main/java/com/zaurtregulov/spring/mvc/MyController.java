@@ -2,6 +2,7 @@ package com.zaurtregulov.spring.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/employee")
+//@RequestMapping("/employee")
 public class MyController {
     @RequestMapping("/")
     public String showFirstView() {
@@ -18,37 +19,22 @@ public class MyController {
     }
 
     @RequestMapping("/askDetails")
-    public String askEmployeeDetails() {
+    public String askEmployeeDetails(Model model) {
+        model.addAttribute("employee", new Employee());
         return "ask-emp-detail-view";
     }
 
-//    @RequestMapping("/showDetails")
-//    public String showEmployeeDetails(HttpServletRequest httpServletRequest, Model model) {
-//
-//        //Считываем из передаваемой странички данные
-//        String empName = httpServletRequest.getParameter("employeeName");
-//        empName = "name: " + empName;
-//        String empSurname = httpServletRequest.getParameter("employeeSurname");
-//        empSurname = "surname: " + empSurname;
-//
-//
-//        // добавляем в модель (Модель - это просто контейнер для хранения данных)
-//        model.addAttribute("nameAttribute", empName);
-//        model.addAttribute("surnameAttribute", empSurname);
-//        model.addAttribute("description", "Programmer");
-//
-//        //возвращаем view
-//        return "show-emp-details-view";
-//    }
-
     @RequestMapping("/showDetails")
-    public String showEmployeeDetails(@RequestParam("employeeName") String empName, Model model) {
-        empName = " mr " + empName + "!!!";
+    public String showEmployeeDetails(@ModelAttribute("employee") Employee emp) {
+        String name = emp.getName();
+        emp.setName("Mr: " + name);
 
-        // добавляем в модель(хранилище) для последуюещго использования для view
-        model.addAttribute("nameAttribute", empName);
+        String surname = emp.getSurname();
+        emp.setSurname("*" + surname);
 
-        //возвращаем view
+        int salary = emp.getSalary();
+        emp.setSalary(salary * 10);
+
         return "show-emp-details-view";
     }
 }

@@ -9,9 +9,13 @@
 </head>
 <body>
 <H2>Dear Employee, you are WELCOME!!!</H2>
-<%--<p>Your name: ${param.employeeName}</p>--%>
-<%--<p>Your new name: ${nameAttribute}</p>--%>
-<%--<p>Your surname: ${surnameAttribute} ${description}</p>--%>
-<p>${nameAttribute}</p>
+Your name: ${employee.name}
+<br>
+Your surname: ${employee.surname}
+<br>
+Your salary: ${employee.salary}
+<br>
+Your department: ${employee.department}
 </body>
+Your car: ${employee.carBrand}
 </html>
